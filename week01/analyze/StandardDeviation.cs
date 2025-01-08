@@ -13,6 +13,7 @@ public static class StandardDeviation {
     }
 
     private static double StandardDeviation1(int[] numbers) {
+        //big O notation: O(n)
         var total = 0.0;
         var count = 0;
         foreach (var number in numbers) {
@@ -31,6 +32,7 @@ public static class StandardDeviation {
     }
 
     private static double StandardDeviation2(int[] numbers) {
+        //big O notation: O(n^2)
         var sumSquaredDifferences = 0.0;
         var countNumbers = 0;
         foreach (var number in numbers) {
@@ -51,6 +53,7 @@ public static class StandardDeviation {
     }
 
     private static double StandardDeviation3(int[] numbers) {
+        //big O notation: O(n)
         var count = numbers.Length;
         var avg = (double)numbers.Sum() / count;
         var sumSquaredDifferences = 0.0;
