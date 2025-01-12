@@ -21,7 +21,28 @@ public class TakingTurnsQueue
     public void AddPerson(string name, int turns)
     {
         var person = new Person(name, turns);
+        var tempQueue = new Queue<Person>();
+
+        // Dequeue all elements from _people into tempQueue
+        while (_people.Length > 0)
+        {
+            tempQueue.Enqueue(_people.Dequeue());
+        }
         _people.Enqueue(person);
+
+        // Use a stack to reverse the order of tempQueue
+        var stack = new Stack<Person>();
+        while (tempQueue.Count > 0)
+        {
+            stack.Push(tempQueue.Dequeue());
+        }
+
+        // Re-add elements from the stack to _people
+        while (stack.Count > 0)
+        {
+            var p = stack.Pop();
+            _people.Enqueue(p);
+        }
     }
 
     /// <summary>
@@ -42,10 +63,13 @@ public class TakingTurnsQueue
             Person person = _people.Dequeue();
             if (person.Turns > 1)
             {
-                person.Turns -= 1;
-                _people.Enqueue(person);
+                person.Turns--;
+                AddPerson(person.Name, person.Turns);
             }
-
+            else if (person.Turns <= 0)
+            {
+                AddPerson(person.Name, person.Turns);
+            }
             return person;
         }
     }
